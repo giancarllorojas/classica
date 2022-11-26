@@ -54,10 +54,7 @@ public class KeysManager : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        Keys touchs = GetTouchs();
-        if(touchs.key1 != null){
-            Debug.Log("Key 1: " + touchs.key1);
-        }
+        
     }
 
     public Keys GetTouchs()
