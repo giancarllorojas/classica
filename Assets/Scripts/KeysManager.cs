@@ -2,19 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum KeyState {
+    Untapped,
+    Tapped
+}
+
 public class Keys {
-    public TouchPhase? key1 = null;
-    public TouchPhase? key2 = null;
-    public TouchPhase? key3 = null;
-    public TouchPhase? key4 = null;
-    public TouchPhase? key5 = null;
+    public KeyState key1 = KeyState.Untapped;
+    public KeyState key2 = KeyState.Untapped;
+    public KeyState key3 = KeyState.Untapped;
+    public KeyState key4 = KeyState.Untapped;
+    public KeyState key5 = KeyState.Untapped;
 
     public Keys(TouchPhase? k1, TouchPhase? k2, TouchPhase? k3, TouchPhase? k4, TouchPhase? k5){
-        key1 = k1;
-        key2 = k2;
-        key3 = k3;
-        key4 = k4;
-        key5 = k5;
+        key1 = k1 == TouchPhase.Began || k1 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
+        key2 = k2 == TouchPhase.Began || k2 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
+        key3 = k3 == TouchPhase.Began || k3 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
+        key4 = k4 == TouchPhase.Began || k4 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
+        key5 = k5 == TouchPhase.Began || k5 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
     }
 }
 
