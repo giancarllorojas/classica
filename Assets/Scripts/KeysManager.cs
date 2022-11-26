@@ -2,6 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class Keys {
+    public TouchPhase? key1 = null;
+    public TouchPhase? key2 = null;
+    public TouchPhase? key3 = null;
+    public TouchPhase? key4 = null;
+    public TouchPhase? key5 = null;
+
+    public Keys(TouchPhase? k1, TouchPhase? k2, TouchPhase? k3, TouchPhase? k4, TouchPhase? k5){
+        key1 = k1;
+        key2 = k2;
+        key3 = k3;
+        key4 = k4;
+        key5 = k5;
+    }
+}
+
 [ExecuteInEditMode]
 public class KeysManager : MonoBehaviour
 {
@@ -31,12 +47,22 @@ public class KeysManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        Keys touchs = GetTouchs();
+        if(touchs.key1 != null){
+            Debug.Log("Key 1: " + touchs.key1);
+        }
     }
 
-    public void HandleTouch()
+    public Keys GetTouchs()
     {
+        TouchPhase? key1TouchPhase = null;
+        TouchPhase? key2TouchPhase = null;
+        TouchPhase? key3TouchPhase = null;
+        TouchPhase? key4TouchPhase = null;
+        TouchPhase? key5TouchPhase = null;
+
         foreach(Touch touch in Input.touches){
             Vector3 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
 
@@ -44,20 +70,15 @@ public class KeysManager : MonoBehaviour
             touchPosition.y = (touchPosition.y / ScreenSize.GetScreenToWorldHeight) + 0.5f;
 
             if(touchPosition.y <= spriteHeight){
-                if(touchPosition.x <= (keySize * 1) + keyMargin){
-                    key1TouchPhase = touch.phase;
-                } else if(touchPosition.x <= (keySize * 2) + keyMargin){
-                    key2TouchPhase = touch.phase;
-                } else if(touchPosition.x <= (keySize * 3) + keyMargin){
-                    key3TouchPhase = touch.phase;
-                } else if(touchPosition.x <= (keySize * 4) + keyMargin){
-                    key4TouchPhase = touch.phase;
-                } else if(touchPosition.x <= (keySize * 5) + keyMargin){
-                    key5TouchPhase = touch.phase;
-                }
+                key1TouchPhase = touchPosition.x <= (keySize * 1) + keyMargin ? touch.phase as TouchPhase? : null;
+                key2TouchPhase = touchPosition.x <= (keySize * 2) + keyMargin ? touch.phase as TouchPhase? : null;
+                key3TouchPhase = touchPosition.x <= (keySize * 3) + keyMargin ? touch.phase as TouchPhase? : null;
+                key4TouchPhase = touchPosition.x <= (keySize * 4) + keyMargin ? touch.phase as TouchPhase? : null;
+                key5TouchPhase = touchPosition.x <= (keySize * 5) + keyMargin ? touch.phase as TouchPhase? : null;
             }
         }
 
+        return new Keys(key1TouchPhase, key2TouchPhase, key3TouchPhase, key4TouchPhase, key5TouchPhase);
     }
 
     void OnDrawGizmosSelected()
