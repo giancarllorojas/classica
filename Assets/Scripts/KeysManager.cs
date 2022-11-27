@@ -21,6 +21,23 @@ public class Keys {
         key4 = k4 == TouchPhase.Began || k4 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
         key5 = k5 == TouchPhase.Began || k5 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
     }
+
+    public bool IsPressed(int lane){
+        switch(lane){
+            case 0:
+                return key1 == KeyState.Tapped;
+            case 1:
+                return key2 == KeyState.Tapped;
+            case 2:
+                return key3 == KeyState.Tapped;
+            case 3:
+                return key4 == KeyState.Tapped;
+            case 4:
+                return key5 == KeyState.Tapped;
+            default:
+                return false;
+        }
+    }
 }
 
 [ExecuteInEditMode]
@@ -57,7 +74,11 @@ public class KeysManager : MonoBehaviour
         
     }
 
-    public Keys GetTouchs()
+    public float GetHeight(){
+        return spriteHeight;
+    }
+
+    public Keys GetTouches()
     {
         TouchPhase? key1TouchPhase = null;
         TouchPhase? key2TouchPhase = null;
