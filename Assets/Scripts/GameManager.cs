@@ -1,11 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
     private NotesManager notesManager;
     private KeysManager keysManager;
+    private Animator hitTextAnimator;
+    private TextMeshProUGUI hitText;
 
     Camera camera;
 
@@ -17,6 +20,8 @@ public class GameManager : MonoBehaviour
         notesManager = GameObject.Find("Notes").GetComponent<NotesManager>();
         keysManager = GameObject.Find("Keys").GetComponent<KeysManager>();
         camera = GameObject.Find("Camera").GetComponent<Camera>();
+        hitTextAnimator = GameObject.Find("HitUI/Canvas/HitText").GetComponent<Animator>();
+        hitText = GameObject.Find("HitUI/Canvas/HitText").GetComponent<TextMeshProUGUI>();
     }
 
     // Update is called once per frame
@@ -54,7 +59,19 @@ public class GameManager : MonoBehaviour
                 Note note = hit.collider.gameObject.GetComponent<Note>();
                 if(note != null){
                     if(touches.IsPressed(note.GetLane())){
-                        note.Hit(HitDistanceFromCenter);
+                        NoteHitState? hitState = note.Hit(HitDistanceFromCenter);
+
+                        if(hitState != null){
+                            if(hitState == NoteHitState.Perfect){
+                                hitText.text = "Perfect";
+                            }else if(hitState == NoteHitState.Good){
+                                hitText.text = "Good";
+                            }else if(hitState == NoteHitState.Ok){
+                                hitText.text = "Ok";
+                            }
+
+                            hitTextAnimator.Play("HitStatusAnimation", 0,0);
+                        }
                     }
                 }
             }

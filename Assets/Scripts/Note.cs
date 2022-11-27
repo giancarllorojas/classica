@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-enum NoteHitState {
+public enum NoteHitState {
     Miss,
     Ok,
     Good,
@@ -35,11 +35,13 @@ public class Note : MonoBehaviour
         
     }
 
-    public void Hit(float HitDistanceFromCenter){
-        if(dead) return;
+    public NoteHitState? Hit(float HitDistanceFromCenter){
+        if(dead) return null;
         NoteHitState hitState = GetHitState(HitDistanceFromCenter);
         Debug.Log($"Hit {hitState} note in lane {lane}");
         Destroy(gameObject);
+
+        return hitState;
     }
 
     public void Miss(){

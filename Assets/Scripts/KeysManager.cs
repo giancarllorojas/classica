@@ -15,11 +15,11 @@ public class Keys {
     public KeyState key5 = KeyState.Untapped;
 
     public Keys(TouchPhase? k1, TouchPhase? k2, TouchPhase? k3, TouchPhase? k4, TouchPhase? k5){
-        key1 = k1 == TouchPhase.Began || k1 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
-        key2 = k2 == TouchPhase.Began || k2 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
-        key3 = k3 == TouchPhase.Began || k3 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
-        key4 = k4 == TouchPhase.Began || k4 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
-        key5 = k5 == TouchPhase.Began || k5 == TouchPhase.Moved ? KeyState.Tapped : KeyState.Untapped;
+        key1 = k1 == TouchPhase.Began || k1 == TouchPhase.Moved || k1 == TouchPhase.Stationary ? KeyState.Tapped : KeyState.Untapped;
+        key2 = k2 == TouchPhase.Began || k2 == TouchPhase.Moved || k2 == TouchPhase.Stationary ? KeyState.Tapped : KeyState.Untapped;
+        key3 = k3 == TouchPhase.Began || k3 == TouchPhase.Moved || k3 == TouchPhase.Stationary ? KeyState.Tapped : KeyState.Untapped;
+        key4 = k4 == TouchPhase.Began || k4 == TouchPhase.Moved || k4 == TouchPhase.Stationary ? KeyState.Tapped : KeyState.Untapped;
+        key5 = k5 == TouchPhase.Began || k5 == TouchPhase.Moved || k5 == TouchPhase.Stationary ? KeyState.Tapped : KeyState.Untapped;
     }
 
     public bool IsPressed(int lane){
