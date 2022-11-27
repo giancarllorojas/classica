@@ -60,6 +60,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        Debug.DrawLine(new Vector3(startPoint, height,0), new Vector3(startPoint + screenW, height ,0), Color.red, 20f);
+        RaycastHit2D[] hitsMiss = Physics2D.RaycastAll(new Vector3(startPoint, height + (height/1.5f),0), Vector3.right, screenW, mask);
+
+        foreach(RaycastHit2D hit in hitsMiss){
+            if(hit.collider != null){
+                Note note = hit.collider.gameObject.GetComponent<Note>();
+                if(note != null){
+                    note.Miss();
+                }
+            }
+        }
+
+        Debug.DrawLine(new Vector3(startPoint, height + (height/1.5f),0), new Vector3(startPoint + screenW, height + (height/1.5f),0), Color.red, 20f);
     }
 }

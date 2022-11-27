@@ -15,6 +15,8 @@ public class Note : MonoBehaviour
     private Camera camera;
     private KeysManager keysManager;
 
+    private bool dead = false;
+
 
     // Start is called before the first frame update
     void Start()
@@ -34,13 +36,18 @@ public class Note : MonoBehaviour
     }
 
     public void Hit(float HitDistanceFromCenter){
+        if(dead) return;
         NoteHitState hitState = GetHitState(HitDistanceFromCenter);
         Debug.Log($"Hit {hitState} note in lane {lane}");
+        Destroy(gameObject);
     }
 
     public void Miss(){
+        if(dead) return;
+
+        dead = true;
         Debug.Log("Missed note in lane " + lane);
-        //Destroy(gameObject);
+        Destroy(gameObject);
     }
 
     public void SetLane(int lane){

@@ -20,7 +20,7 @@ public class NotesManager : MonoBehaviour
 
         note.GetComponent<Note>().SetLane(lane);
 
-        noteRB.velocity = new Vector3(0, -4, 0);
+        noteRB.velocity = new Vector3(0, -6, 0);
         notes.Add(note);
     }
 
